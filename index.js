@@ -11,12 +11,18 @@ const tacoFoodora = "https://www.foodora.ca/chain/cs4gd/rancho-relaxo";
 const pig = "https://www.whenthepigcamehome.ca/menu";
 
 async function go() {
-  // const html = await getHTML("https://www.whenthepigcamehome.ca/menu");
-  // const menuItems = await getMenuItemFromPigCameHome(html);
-  // console.log(menuItems);
-  const html = await getHTML(tacoFoodora);
-  const menuItems = await getItemsFromFoodora(html);
-  console.log(menuItems);
+  const pigPromise = getHTML(pigFoodora);
+  const tacoPromise = getHTML(tacoFoodora);
+
+  const [pigHTML, tacoHTML] = await Promise.all([pigPromise, tacoPromise]);
+
+  const pigItems = await getItemsFromFoodora(pigHTML);
+  const ranchoItems = await getItemsFromFoodora(tacoHTML);
+  console.log(`When the pig came home:`);
+  console.log(pigItems);
+
+  console.log(`Rancho relaxo menu:`);
+  console.log(ranchoItems);
 }
 
 go();
