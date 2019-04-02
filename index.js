@@ -14,7 +14,7 @@ async function go() {
   // const html = await getHTML("https://www.whenthepigcamehome.ca/menu");
   // const menuItems = await getMenuItemFromPigCameHome(html);
   // console.log(menuItems);
-  const html = await getHTML(pigFoodora);
+  const html = await getHTML(tacoFoodora);
   const menuItems = await getItemsFromFoodora(html);
   console.log(menuItems);
 }
