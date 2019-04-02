@@ -7,6 +7,7 @@ import {
 const pigFoodora =
   "https://www.foodora.ca/restaurant/s1jc/when-the-pig-came-home";
 
+const tacoFoodora = "https://www.foodora.ca/chain/cs4gd/rancho-relaxo";
 const pig = "https://www.whenthepigcamehome.ca/menu";
 
 async function go() {
