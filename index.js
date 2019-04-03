@@ -1,27 +1,36 @@
+import express from "express";
 import {
   getHTML,
-  getMenuItemFromPigCameHome,
-  getItemsFromFoodora,
   getPigCameHomeMenu,
   getRanchoCameHomeMenu
 } from "./lib/scraper";
-
+import db from "./lib/db";
 const pigFoodora =
   "https://www.foodora.ca/restaurant/s1jc/when-the-pig-came-home";
 
 const tacoFoodora = "https://www.foodora.ca/chain/cs4gd/rancho-relaxo";
-const pig = "https://www.whenthepigcamehome.ca/menu";
 
-async function go() {
+const app = express();
+
+//console.log(db);
+
+app.get("/scrape", async (req, res, next) => {
+  console.log("scraping!!");
   const [pigMenu, ranchoMenu] = await Promise.all([
     getPigCameHomeMenu(pigFoodora),
     getRanchoCameHomeMenu(tacoFoodora)
   ]);
-  console.log(`When the pig came home:`);
-  console.log(pigMenu);
+  db.get("WTPCH")
+    .push({ pigMenu })
+    .write();
 
-  console.log(`Rancho relaxo menu:`);
-  console.log(ranchoMenu);
-}
+  db.get("RanchoRelaxo")
+    .push({ ranchoMenu })
+    .write();
 
-go();
+  res.json({ pigMenu, ranchoMenu });
+});
+
+const pig = "https://www.whenthepigcamehome.ca/menu";
+
+app.listen(2005, () => console.log("Example App Running on 2005"));
