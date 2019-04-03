@@ -1,7 +1,9 @@
 import {
   getHTML,
   getMenuItemFromPigCameHome,
-  getItemsFromFoodora
+  getItemsFromFoodora,
+  getPigCameHomeMenu,
+  getRanchoCameHomeMenu
 } from "./lib/scraper";
 
 const pigFoodora =
@@ -11,18 +13,15 @@ const tacoFoodora = "https://www.foodora.ca/chain/cs4gd/rancho-relaxo";
 const pig = "https://www.whenthepigcamehome.ca/menu";
 
 async function go() {
-  const pigPromise = getHTML(pigFoodora);
-  const tacoPromise = getHTML(tacoFoodora);
-
-  const [pigHTML, tacoHTML] = await Promise.all([pigPromise, tacoPromise]);
-
-  const pigItems = await getItemsFromFoodora(pigHTML);
-  const ranchoItems = await getItemsFromFoodora(tacoHTML);
+  const [pigMenu, ranchoMenu] = await Promise.all([
+    getPigCameHomeMenu(pigFoodora),
+    getRanchoCameHomeMenu(tacoFoodora)
+  ]);
   console.log(`When the pig came home:`);
-  console.log(pigItems);
+  console.log(pigMenu);
 
   console.log(`Rancho relaxo menu:`);
-  console.log(ranchoItems);
+  console.log(ranchoMenu);
 }
 
 go();
