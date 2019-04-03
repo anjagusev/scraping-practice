@@ -20,13 +20,9 @@ app.get("/scrape", async (req, res, next) => {
     getPigCameHomeMenu(pigFoodora),
     getRanchoCameHomeMenu(tacoFoodora)
   ]);
-  db.get("WTPCH")
-    .push({ pigMenu })
-    .write();
+  db.set("WTPCH.categories", pigMenu.categories).write();
 
-  db.get("RanchoRelaxo")
-    .push({ ranchoMenu })
-    .write();
+  db.set("RanchoRelaxo.categories", ranchoMenu.categories).write();
 
   res.json({ pigMenu, ranchoMenu });
 });
