@@ -5,6 +5,7 @@ import {
   getRanchoCameHomeMenu
 } from "./lib/scraper";
 import db from "./lib/db";
+
 const pigFoodora =
   "https://www.foodora.ca/restaurant/s1jc/when-the-pig-came-home";
 
@@ -20,13 +21,15 @@ app.get("/scrape", async (req, res, next) => {
     getPigCameHomeMenu(pigFoodora),
     getRanchoCameHomeMenu(tacoFoodora)
   ]);
-  db.set("WTPCH.categories", pigMenu.categories).write();
+  // db.set("WTPCH.categories", pigMenu.categories).write();
 
-  db.set("RanchoRelaxo.categories", ranchoMenu.categories).write();
+  // db.set("RanchoRelaxo.categories", ranchoMenu.categories).write();
 
   res.json({ pigMenu, ranchoMenu });
 });
 
 const pig = "https://www.whenthepigcamehome.ca/menu";
 
-app.listen(2005, () => console.log("Example App Running on 2005"));
+app.listen(2005, () =>
+  console.log("Example App Running on http://localhost:2005")
+);
