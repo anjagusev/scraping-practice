@@ -5,7 +5,7 @@ import {
   getRanchoCameHomeMenu
 } from "./lib/scraper";
 import db from "./lib/db";
-import { getStringDate } from "./lib/helper";
+import { getStringDate, daysOfWeek } from "./lib/helper";
 
 const pigFoodora =
   "https://www.foodora.ca/restaurant/s1jc/when-the-pig-came-home";
@@ -38,7 +38,7 @@ app.get("/save", async (req, res, next) => {
     getRanchoCameHomeMenu(tacoFoodora)
   ]);
 
-  // db.set("restaurants", restaurants).write();
+  //db.set("restaurants", restaurants).write();
   res.json({ restaurants });
 });
 
@@ -49,7 +49,7 @@ app.get("/slack", async (req, res, next) => {
   //pick random item and suggest it
   const dt = new Date().getDay();
   const dayOfWeek = getStringDate(dt);
-  console.log(dayOfWeek);
+  // console.log(dayOfWeek);
   //returns all the info from the database
   const restaurants = db.get("restaurants").value();
 
